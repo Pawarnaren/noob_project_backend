@@ -12,16 +12,8 @@ dotenv.config();
 require("./DatabaseConnection/db");
 
 
-
-const corsOptions = {
-  origin: 'https://bookstore-aditi.netlify.app/',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true, // Enable this if your frontend needs to send cookies
-};
-app.use(cors(corsOptions));
-
-
-
+// Use CORS middleware
+app.use(cors());
 
 
 app.use(express.json());
