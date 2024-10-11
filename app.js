@@ -11,7 +11,19 @@ const orderRoute= require("./routes/orderRoute");
 dotenv.config();
 require("./DatabaseConnection/db");
 
-app.use(cors());
+
+
+const corsOptions = {
+  origin: 'https://bookstore-aditi.netlify.app/',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, // Enable this if your frontend needs to send cookies
+};
+app.use(cors(corsOptions));
+
+
+
+
+
 app.use(express.json());
 
 app.use('./models/img', express.static(path.join(__dirname, './models/img')));
