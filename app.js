@@ -8,6 +8,11 @@ const bookRoute = require("./routes/bookRoute");
 const favoriteRoute = require("./routes/favoriteRoute");
 const cartRoute = require("./routes/cartRoute");
 const orderRoute= require("./routes/orderRoute");
+
+const cron = require("node-cron");
+const axios = require("axios");
+
+
 dotenv.config();
 require("./DatabaseConnection/db");
 
@@ -29,4 +34,17 @@ app.use("/api/v1", orderRoute);
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server started at port ${PORT}`);
+});
+
+
+const SERVER_URL = "https://noob-project-backend.onrender.com/"; // ⚠️ Render ka actual URL daalna
+
+// Cron job to ping the server every 10 seconds
+cron.schedule("*/10 * * * * *", async () => {
+  try {
+    const res = await axios.get(SERVER_URL);
+    console.log("Pinged server successfully at", new Date().toISOString());
+  } catch (err) {
+    console.error("Failed to ping server:", err.message);
+  }
 });
